@@ -1,7 +1,7 @@
 package com.fanniemae.payroll.model;
 
 public class EmployeeType {
-	private String type;
+	protected String type;
 	private float salary;
 	private float hoursWorked;
 	
