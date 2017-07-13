@@ -8,6 +8,7 @@ public class DriverMap {
 	/* the objective of this topic
 	 * is to discuss the relationship 
 	 * between the Map interface and HashMap implementation
+	 * Author : Dharmesh Jasani
 	 */
 	public static void main(String[] args) {
 		Map<String, Double> map = new HashMap<>();
