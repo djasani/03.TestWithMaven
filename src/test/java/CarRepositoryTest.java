@@ -12,7 +12,7 @@ public class CarRepositoryTest {
 		CarRepository c = new CarRepository();
 		Map<String, Double> map = c.findMaps();
 		
-		assertTrue(map.containsKey("Toyota"));
+		assertTrue(map.containsKey("Toota"));
 	}
 	
 	@Test
