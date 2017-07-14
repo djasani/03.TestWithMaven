@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.fanniemae.payroll.model.City;
 import com.fanniemae.payroll.model.Country;
 
 public class CountryRepository extends AbstractSQLDAO implements IQuery<Country> {
@@ -30,5 +29,17 @@ public class CountryRepository extends AbstractSQLDAO implements IQuery<Country>
 		return list;
 
 	}
+
+	@Override
+	public Country findByKey(String key) {
+		// TODO Auto-generated method stub
+		String sql = "Select code, name, population from country where code = '" + key +"'";
+		System.out.println(sql);
+		super.process(sql);
+		Country country = list.get(0);
+		return country;
+	}
+	
+	
 
 }
