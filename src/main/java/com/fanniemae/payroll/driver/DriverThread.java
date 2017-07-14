@@ -1,8 +1,16 @@
 package com.fanniemae.payroll.driver;
 
+import com.fanniemae.payroll.EmailProcess;
+
 public class DriverThread {
 	
 	public static void main(String[] args) {
+		
+		EmailProcess e = new EmailProcess();
+		//e.sendEmail();
+		
+		Thread t2 = new Thread(e);
+		t2.start();
 		
 		Thread t = new Thread(){
 			public void run(){
