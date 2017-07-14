@@ -8,21 +8,29 @@ import java.sql.Statement;
 import org.apache.commons.dbcp.BasicDataSource;
 
 public abstract class AbstractSQLDAO {
-
-	public void process(String sqlStatement) {
-
-		BasicDataSource ds = new BasicDataSource();
-
+	
+	private Statement stmt = null;
+	private ResultSet rs = null;
+	
+	private BasicDataSource ds = new BasicDataSource();
+	{
 		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		ds.setUsername("root");
 		ds.setPassword("hexaware");
 		ds.setUrl("jdbc:mysql://localhost:3306/world?useSSL=false");
+	}
+	
+	public void modify (String sqlStatement){
+		try (Connection con = ds.getConnection()) {
+			stmt = con.createStatement();
+			stmt.executeUpdate(sqlStatement);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-		Connection con = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		try {
-			con = ds.getConnection();
+	public void process(String sqlStatement) {
+		try (Connection con = ds.getConnection();) {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sqlStatement);
 			while (rs.next()) {
@@ -30,19 +38,7 @@ public abstract class AbstractSQLDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (stmt != null)
-					stmt.close();
-				if (con != null)
-					con.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
-
 	}
 	
 	protected abstract void results(ResultSet rs) throws SQLException;
